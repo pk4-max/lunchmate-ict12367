@@ -40,8 +40,8 @@
 
 ### 1. Clone โปรเจค
 ```bash
-git clone https://github.com/<your-username>/lunchmate.git
-cd lunchmate
+git clone https://github.com/pk4-max/lunchmate-ict12367.git
+cd lunchmate-ict12367
 ```
 
 ### 2. สร้าง Virtual Environment
@@ -108,6 +108,7 @@ lunchmate/
 │   ├── urls.py
 │   └── views.py
 ├── media/              # รูปภาพที่ upload
+├── screenshots/        # รูปหน้าเว็บ
 ├── db.sqlite3
 └── manage.py
 ```
@@ -158,4 +159,29 @@ lunchmate/
 
 ## 📸 หน้าเว็บไซต์
 
+### หน้าหลัก (Feed)
 ![หน้าหลัก](screenshots/feed.png)
+
+### ค้นหา
+![ค้นหา](screenshots/search.png)
+
+### สร้างโพสต์ใหม่
+![สร้างโพสต์](screenshots/form.png)
+
+### โปรไฟล์
+![โปรไฟล์](screenshots/profile.png)
+
+### สถิติ
+![สถิติ](screenshots/stats.png)
+
+### สมัครสมาชิก
+![สมัครสมาชิก](screenshots/register.png)
+
+### เข้าสู่ระบบ
+![เข้าสู่ระบบ](screenshots/login.png)
+
+### ยืนยันการลบ
+![ยืนยันการลบ](screenshots/delete.png)
+
+### Admin Panel
+![Admin](screenshots/admin.png)
