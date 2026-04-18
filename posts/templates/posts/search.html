@@ -1,0 +1,100 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+
+<div class="layout full">
+
+  <!-- SEARCH HERO -->
+  <div class="search-hero">
+    <div class="search-hero-top">
+      <div class="hero-eyebrow" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);border-radius:99px;padding:4px 14px;margin-bottom:10px;font-family:'Prompt',sans-serif;font-size:.72rem;font-weight:600;color:#fff;letter-spacing:.6px;text-transform:uppercase;">
+        🔍 ค้นหา
+      </div>
+      <h1 style="font-family:'Prompt',sans-serif;font-weight:900;font-size:1.6rem;color:#fff;line-height:1.2;margin:0;">
+        ค้นหา<span style="color:var(--lm-yellow);">โพสต์</span>ที่ใช่
+      </h1>
+    </div>
+
+    <form method="get">
+      <div class="search-filter-grid">
+        <div class="sf-group">
+          <label class="sf-label">🍽️ ชื่อร้าน / คำค้น</label>
+          <input class="fi" name="q" value="{{ q }}" placeholder="เช่น MK, ก๋วยเตี๋ยว..."/>
+        </div>
+        <div class="sf-group">
+          <label class="sf-label">🕐 มื้ออาหาร</label>
+          <select class="fi" name="meal" style="cursor:pointer;">
+            <option value="">ทั้งหมด</option>
+            <option value="เช้า"     {% if meal == 'เช้า' %}selected{% endif %}>🌅 เช้า</option>
+            <option value="กลางวัน" {% if meal == 'กลางวัน' %}selected{% endif %}>☀️ กลางวัน</option>
+            <option value="เย็น"     {% if meal == 'เย็น' %}selected{% endif %}>🌆 เย็น</option>
+            <option value="ดึก"      {% if meal == 'ดึก' %}selected{% endif %}>🌙 ดึก</option>
+          </select>
+        </div>
+        <div class="sf-group">
+          <label class="sf-label">📍 ทำเล / บริเวณ</label>
+          <input class="fi" name="area" value="{{ area }}" placeholder="เช่น ใกล้ตึก IT..."/>
+        </div>
+      </div>
+      <button class="btn-sub" type="submit" style="width:100%;margin-top:4px;">
+        🔍 ค้นหา
+      </button>
+    </form>
+  </div>
+
+  <!-- RESULTS -->
+  {% if searched %}
+  <p style="margin:16px 0 12px;color:#888;font-size:.88rem;font-family:'Prompt',sans-serif;">
+    พบ <b style="color:#1a1a1a;">{{ posts|length }}</b> โพสต์
+  </p>
+
+  {% for post in posts %}
+  <div class="post-card">
+    <div class="card-head">
+      <div class="avatar">🎓</div>
+      <div class="card-meta">
+        <div class="card-name">{{ post.name }}</div>
+        <div class="card-time">{{ post.created_at|timesince }} ที่แล้ว</div>
+      </div>
+    </div>
+    {% if post.image %}
+    <img src="{{ post.image.url }}" style="width:100%;border-radius:10px;margin:10px 0;max-height:200px;object-fit:cover;"/>
+    {% endif %}
+    <div class="card-rest-pill">
+      <span style="font-size:1.1rem">🍽️</span>
+      <span class="card-rest-name">{{ post.restaurant }}</span>
+    </div>
+    <div class="card-body">
+      {% if post.note %}<div class="card-note">{{ post.note }}</div>{% endif %}
+      <div class="card-tags">
+        <span class="ctag ctag-time">🕐 {{ post.time }} น.</span>
+        <span class="ctag ctag-slot">👥 {{ post.joined }}/{{ post.slots }} คน</span>
+        <span class="ctag ctag-meal">{{ post.meal }}</span>
+        {% if post.area %}<span class="ctag ctag-area">📍 {{ post.area }}</span>{% endif %}
+      </div>
+    </div>
+    <div class="card-foot">
+      <div class="slot-track">
+        <div class="slot-fill" style="width:{% widthratio post.joined post.slots 100 %}%"></div>
+      </div>
+      <div class="slot-txt">{{ post.slots|add:"-1" }} ที่ว่าง</div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="empty">
+    <div class="empty-em">🔍</div>
+    <div class="empty-t">ไม่พบโพสต์ที่ตรงกัน</div>
+    <div class="empty-s">ลองเปลี่ยนคำค้นหาดูนะครับ</div>
+  </div>
+  {% endfor %}
+
+  {% else %}
+  <div class="empty" style="padding:40px 20px;">
+    <div class="empty-em">🍽️</div>
+    <div class="empty-t">ค้นหาร้านอาหารหรือเพื่อน</div>
+    <div class="empty-s">พิมพ์ชื่อร้าน มื้ออาหาร หรือบริเวณที่ต้องการ แล้วกดค้นหาได้เลย</div>
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

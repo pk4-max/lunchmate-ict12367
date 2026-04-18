@@ -1,0 +1,154 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+
+<div class="layout">
+  <div>
+
+    <!-- HERO BANNER -->
+    <div class="feed-hero">
+      <div class="hero-top">
+        <div class="hero-content">
+          <div class="hero-eyebrow">🎓 Sripatum University · IT Faculty</div>
+          <h1 class="hero-title">หาเพื่อน<span>กินข้าว</span>ด้วยกัน!</h1>
+          <p class="hero-sub">โพสต์ชวนเพื่อน · หารค่าอาหาร · นัดกินข้าวง่ายๆ ในมหาวิทยาลัย</p>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="hero-stats">
+        <div class="h-stat">
+          <span class="h-stat-num">{{ total_posts }}</span>
+          <span class="h-stat-lbl">โพสต์ทั้งหมด</span>
+        </div>
+        <div class="h-stat">
+          <span class="h-stat-num">{{ total_joined }}</span>
+          <span class="h-stat-lbl">คนเข้าร่วม</span>
+        </div>
+        <div class="h-stat">
+          <span class="h-stat-num">{{ open_posts }}</span>
+          <span class="h-stat-lbl">โพสต์เปิดอยู่</span>
+        </div>
+      </div>
+
+      <!-- FILTER TABS -->
+      <div class="filter-tabs">
+        <a href="?meal=" class="ftab {% if not meal %}active{% endif %}">ทั้งหมด</a>
+        <a href="?meal=เช้า" class="ftab {% if meal == 'เช้า' %}active{% endif %}">🌅 เช้า</a>
+        <a href="?meal=กลางวัน" class="ftab {% if meal == 'กลางวัน' %}active{% endif %}">☀️ กลางวัน</a>
+        <a href="?meal=เย็น" class="ftab {% if meal == 'เย็น' %}active{% endif %}">🌆 เย็น</a>
+        <a href="?meal=ดึก" class="ftab {% if meal == 'ดึก' %}active{% endif %}">🌙 ดึก</a>
+      </div>
+    </div>
+
+    <!-- FEED COUNT BAR -->
+    <div class="feed-count-bar">
+      <span class="feed-count-label">{{ posts|length }} โพสต์</span>
+      <a href="{% url 'post_create' %}" class="btn-cta" style="padding:8px 18px;font-size:.83rem;">➕ โพสต์ใหม่</a>
+    </div>
+
+    <!-- POSTS -->
+    {% for post in posts %}
+    <div class="post-card">
+      <div class="card-head">
+        <div class="avatar">🎓</div>
+        <div class="card-meta">
+          <div class="card-name">{{ post.name }}</div>
+          <div class="card-time">{{ post.created_at|timesince }} ที่แล้ว</div>
+        </div>
+        {% if request.user == post.owner %}
+        <div style="margin-left:auto;display:flex;gap:8px;">
+          <a href="{% url 'post_edit' post.pk %}" style="padding:5px 12px;border-radius:8px;background:#f5f5f5;border:1px solid #ebebeb;font-size:.78rem;font-weight:700;color:#374151;text-decoration:none;">✏️ แก้ไข</a>
+          <a href="{% url 'post_delete' post.pk %}" style="padding:5px 12px;border-radius:8px;background:#fff0f0;border:1px solid #ffc5c5;font-size:.78rem;font-weight:700;color:#dc2626;text-decoration:none;">🗑️ ลบ</a>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if post.image %}
+      <img src="{{ post.image.url }}" style="width:100%;border-radius:10px;margin:10px 0;max-height:220px;object-fit:cover;"/>
+      {% endif %}
+
+      <div class="card-rest-pill">
+        <span style="font-size:1.1rem">🍽️</span>
+        <span class="card-rest-name">{{ post.restaurant }}</span>
+      </div>
+
+      <div class="card-body">
+        {% if post.note %}
+        <div class="card-note">{{ post.note }}</div>
+        {% endif %}
+        <div class="card-tags">
+          <span class="ctag ctag-time">🕐 {{ post.time }} น.</span>
+          <span class="ctag ctag-slot">👥 {{ post.joined }}/{{ post.slots }} คน</span>
+          <span class="ctag ctag-meal">{{ post.meal }}</span>
+          {% if post.area %}<span class="ctag ctag-area">📍 {{ post.area }}</span>{% endif %}
+        </div>
+      </div>
+
+      <div class="card-foot">
+        <div class="slot-track">
+          <div class="slot-fill" style="width:{% widthratio post.joined post.slots 100 %}%"></div>
+        </div>
+        <div class="slot-txt">{{ post.slots|add:"-1" }} ที่ว่าง</div>
+        {% if post.joined < post.slots and request.user != post.owner %}
+        <form method="post" action="{% url 'join_post' post.pk %}" style="margin:0;">
+          {% csrf_token %}
+          <button type="submit" class="btn-join">เข้าร่วม</button>
+        </form>
+        {% elif post.joined >= post.slots %}
+        <span class="btn-join full">เต็มแล้ว</span>
+        {% elif request.user == post.owner %}
+        <span class="btn-join joined">โพสต์ของคุณ</span>
+        {% endif %}
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty">
+      <div class="empty-em">🍽️</div>
+      <div class="empty-t">ยังไม่มีโพสต์</div>
+      <div class="empty-s">เป็นคนแรกที่ชวนเพื่อนกินข้าวสิ!</div>
+      <a href="{% url 'post_create' %}" class="btn-cta" style="margin-top:16px;padding:10px 24px;">➕ โพสต์เลย</a>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- สถิติวันนี้ -->
+    <div class="s-card">
+      <div class="s-card-title">📊 สถิติวันนี้</div>
+      <div class="stat-grid">
+        <div class="stat-box">
+          <span class="stat-box-num">{{ total_posts }}</span>
+          <span class="stat-box-lbl">โพสต์ทั้งหมด</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-num">{{ total_joined }}</span>
+          <span class="stat-box-lbl">คนเข้าร่วม</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-num">{{ open_posts }}</span>
+          <span class="stat-box-lbl">โพสต์เปิดอยู่</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ร้านยอดนิยม -->
+    <div class="s-card" style="margin-top:14px;">
+      <div class="s-card-title">🔥 ร้านยอดนิยม</div>
+      {% for r in top_restaurants %}
+      <div class="trend-item">
+        <span class="trend-rank">{{ forloop.counter }}</span>
+        <div class="trend-info">
+          <div class="trend-name">{{ r.restaurant }}</div>
+          <div class="trend-cnt">{{ r.cnt }} โพสต์</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

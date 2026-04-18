@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SPU LunchMate — หาเพื่อนกินข้าว</title>
+  <link rel="stylesheet" href="{% static 'posts/style.css' %}"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="logo-block" href="{% url 'feed' %}">
+      <div class="logo-icon-wrap">🍜</div>
+      <div class="logo-text">
+        <span class="logo-name">Lunch<span>Mate</span></span>
+        <span class="logo-sub">Find your lunch buddy</span>
+      </div>
+    </a>
+    <div class="spu-badge"><div class="spu-badge-dot"></div>SPU Official</div>
+    <div class="nav-divider"></div>
+    <div class="nav-links" id="nav-links-desktop">
+      <a class="nav-link {% if request.resolver_match.url_name == 'feed' %}active{% endif %}" href="{% url 'feed' %}">
+        <span class="nl-icon">🏠</span><span class="nl-lbl">หน้าหลัก</span>
+      </a>
+      <a class="nav-link {% if request.resolver_match.url_name == 'search' %}active{% endif %}" href="{% url 'search' %}">
+        <span class="nl-icon">🔍</span><span class="nl-lbl">ค้นหา</span>
+      </a>
+      <a class="nav-link {% if request.resolver_match.url_name == 'post_create' %}active{% endif %}" href="{% url 'post_create' %}">
+        <span class="nl-icon">✏️</span><span class="nl-lbl">โพสต์ใหม่</span>
+      </a>
+      <a class="nav-link {% if request.resolver_match.url_name == 'stats' %}active{% endif %}" href="{% url 'stats' %}">
+        <span class="nl-icon">📊</span><span class="nl-lbl">สถิติ</span>
+      </a>
+      {% if request.user.is_authenticated %}
+      <a class="nav-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">
+        <span class="nl-icon">👤</span><span class="nl-lbl">โปรไฟล์</span>
+      </a>
+      {% endif %}
+    </div>
+    {% if request.user.is_superuser %}
+    <a href="/admin/" class="btn-login" style="border-color:#006633;color:#006633;" target="_blank">
+      <span>🛡️</span><span>Admin</span>
+    </a>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}" class="btn-login">
+      <span>👋</span><span>ออกจากระบบ</span>
+    </a>
+    {% else %}
+    <a href="{% url 'login' %}" class="btn-login">
+      <span>🔑</span><span>เข้าสู่ระบบ</span>
+    </a>
+    {% endif %}
+    <a class="btn-cta desktop-only" href="{% url 'post_create' %}">
+      <span>➕</span><span>ชวนกินข้าว</span>
+    </a>
+  </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<div class="toast" id="toast"></div>
+<script src="{% static 'posts/main.js' %}"></script>
+</body>
+</html>

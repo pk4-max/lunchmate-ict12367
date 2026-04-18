@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SPU LunchMate — เข้าสู่ระบบ</title>
+  <link rel="stylesheet" href="{% static 'posts/style.css' %}"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="logo-block" href="#">
+      <div class="logo-icon-wrap">🍜</div>
+      <div class="logo-text">
+        <span class="logo-name">Lunch<span>Mate</span></span>
+        <span class="logo-sub">Find your lunch buddy</span>
+      </div>
+    </a>
+    <div class="spu-badge"><div class="spu-badge-dot"></div>SPU Official</div>
+    <div class="nav-divider"></div>
+    <div class="nav-links">
+      <a class="nav-link active" href="{% url 'login' %}"><span class="nl-icon">🔑</span><span class="nl-lbl">เข้าสู่ระบบ</span></a>
+      <a class="nav-link" href="{% url 'register' %}"><span class="nl-icon">📝</span><span class="nl-lbl">สมัครสมาชิก</span></a>
+    </div>
+    <a class="btn-cta desktop-only" href="{% url 'register' %}"><span>🎓</span><span>สมัครสมาชิก</span></a>
+  </div>
+</nav>
+
+<!-- LANDING HERO -->
+<div class="lp-hero" style="background:linear-gradient(135deg,#006633 0%,#007a38 40%,#00a84a 75%,#00C851 100%);min-height:calc(100vh - 64px);display:flex;align-items:center;position:relative;overflow:hidden;">
+
+  <!-- floating emoji bg -->
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.13;font-size:2.5rem;display:flex;flex-wrap:wrap;gap:60px;padding:40px;align-content:flex-start;">
+    🍜🍱🍔🥘🍣🫕🍚🍜🍱🍔🥘🍣🫕🍚🍜🍱🍔🥘🍣🫕🍚🍜🍱🍔🥘🍣🫕🍚
+  </div>
+
+  <div style="max-width:1140px;margin:0 auto;padding:60px 24px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;width:100%;">
+
+    <!-- LEFT: Hero text -->
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:6px 16px;margin-bottom:28px;">
+        <span style="font-size:.8rem">🎓</span>
+        <span style="color:#fff;font-size:.8rem;font-weight:700;letter-spacing:1px;font-family:'Prompt',sans-serif;">SRIPATUM UNIVERSITY · OFFICIAL PLATFORM</span>
+      </div>
+      <h1 style="font-family:'Prompt',sans-serif;font-weight:900;font-size:3.5rem;color:#fff;line-height:1.1;margin-bottom:16px;">
+        หาเพื่อนกินข้าว<br>
+        <span style="color:#FFD60A;">ง่ายกว่าที่เคย</span>
+      </h1>
+      <p style="color:rgba(255,255,255,.85);font-size:1rem;line-height:1.8;margin-bottom:32px;max-width:460px;">
+        SPU LunchMate แพลตฟอร์มชวนเพื่อนกินข้าวสำหรับนักศึกษามหาวิทยาลัย ศรีปทุม โพสต์ หาเพื่อน หารค่าอาหาร ในที่เดียว
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px;">
+        <a href="{% url 'register' %}" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#006633;font-family:'Prompt',sans-serif;font-weight:800;font-size:.95rem;padding:14px 28px;border-radius:99px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.2);">
+          🚀 เริ่มใช้งาน
+        </a>
+        <a href="#login-card" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.5);color:#fff;font-family:'Prompt',sans-serif;font-weight:700;font-size:.95rem;padding:14px 28px;border-radius:99px;text-decoration:none;">
+          🔑 ดูตัวอย่าง
+        </a>
+      </div>
+      <!-- Stats -->
+      <div style="display:flex;gap:32px;">
+        <div>
+          <div style="font-family:'Prompt',sans-serif;font-weight:900;font-size:1.8rem;color:#fff;">500+</div>
+          <div style="color:rgba(255,255,255,.7);font-size:.82rem;">นักศึกษา</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,.2);"></div>
+        <div>
+          <div style="font-family:'Prompt',sans-serif;font-weight:900;font-size:1.8rem;color:#fff;">1,200+</div>
+          <div style="color:rgba(255,255,255,.7);font-size:.82rem;">โพสต์</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,.2);"></div>
+        <div>
+          <div style="font-family:'Prompt',sans-serif;font-weight:900;font-size:1.8rem;color:#fff;">50+</div>
+          <div style="color:rgba(255,255,255,.7);font-size:.82rem;">ร้านแนะนำ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Login Card -->
+    <div id="login-card" class="login-card" style="background:#fff;border-radius:20px;padding:36px 32px;box-shadow:0 20px 60px rgba(0,0,0,.25);">
+      <div class="login-logo" style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <div style="width:44px;height:44px;border-radius:12px;background:#00C851;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🍜</div>
+        <div>
+          <div style="font-family:'Prompt',sans-serif;font-weight:800;font-size:1.1rem;color:#1a1a1a;">Lunch<span style="color:#00C851;">Mate</span></div>
+          <div style="font-size:.7rem;color:#888;">SPU · Sripatum University</div>
+        </div>
+      </div>
+
+      <h2 style="font-family:'Prompt',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:6px;">เข้าสู่ระบบ</h2>
+      <p style="color:#888;font-size:.85rem;margin-bottom:22px;">เข้าสู่ระบบเพื่อใช้งาน SPU LunchMate</p>
+
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div style="margin-bottom:14px;">
+          <label style="font-size:.83rem;font-weight:700;color:#555;display:block;margin-bottom:5px;font-family:'Prompt',sans-serif;">{{ field.label }}</label>
+          <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}"
+            style="width:100%;padding:11px 14px;border:1.5px solid #ebebeb;border-radius:10px;font-size:.93rem;font-family:'Sarabun',sans-serif;outline:none;transition:border .2s;"
+            placeholder="{% if field.html_name == 'username' %}ชื่อผู้ใช้{% else %}รหัสผ่าน{% endif %}"
+            onfocus="this.style.borderColor='#00C851'" onblur="this.style.borderColor='#ebebeb'"/>
+          {% if field.errors %}<div style="color:#dc2626;font-size:.78rem;margin-top:4px;">{{ field.errors }}</div>{% endif %}
+        </div>
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+        <div style="background:#fff0f0;border:1px solid #ffc5c5;border-radius:8px;padding:10px 14px;color:#dc2626;font-size:.83rem;margin-bottom:14px;">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <button type="submit" style="width:100%;padding:13px;background:#00C851;color:#fff;border:none;border-radius:99px;font-family:'Prompt',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;margin-top:4px;transition:background .2s;"
+          onmouseover="this.style.background='#00A843'" onmouseout="this.style.background='#00C851'">
+          🚀 เข้าสู่ระบบ
+        </button>
+      </form>
+
+      <div style="text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid #f0f0f0;">
+        <span style="color:#888;font-size:.85rem;">ยังไม่มีบัญชี?</span>
+        <a href="{% url 'register' %}" style="color:#00C851;font-weight:800;font-size:.85rem;text-decoration:none;margin-left:6px;">สมัครสมาชิก →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

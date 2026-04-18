@@ -1,0 +1,55 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+
+<h2 style="font-family:'Prompt',sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:20px">📊 สถิติเว็บไซต์</h2>
+
+<!-- Summary Cards -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+  <div style="background:linear-gradient(135deg,#006633,#00C851);border-radius:14px;padding:24px;text-align:center;color:#fff">
+    <div style="font-size:2rem;font-weight:800;font-family:'Prompt',sans-serif">{{ total_posts }}</div>
+    <div style="font-size:.88rem;opacity:.85;margin-top:4px">โพสต์ทั้งหมด</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0369A1,#0EA5E9);border-radius:14px;padding:24px;text-align:center;color:#fff">
+    <div style="font-size:2rem;font-weight:800;font-family:'Prompt',sans-serif">{{ total_users }}</div>
+    <div style="font-size:.88rem;opacity:.85;margin-top:4px">สมาชิกทั้งหมด</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#B45309,#F59E0B);border-radius:14px;padding:24px;text-align:center;color:#fff">
+    <div style="font-size:2rem;font-weight:800;font-family:'Prompt',sans-serif">{{ total_joined }}</div>
+    <div style="font-size:.88rem;opacity:.85;margin-top:4px">คนเข้าร่วมทั้งหมด</div>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+
+  <!-- ร้านยอดนิยม -->
+  <div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.07)">
+    <h3 style="font-family:'Prompt',sans-serif;font-weight:800;margin-bottom:16px">🏆 ร้านยอดนิยม</h3>
+    {% for r in top_restaurants %}
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5">
+      <div style="width:28px;height:28px;border-radius:50%;background:#dcfce7;color:#166534;display:flex;align-items:center;justify-content:center;font-family:'Prompt',sans-serif;font-weight:800;font-size:.85rem">{{ forloop.counter }}</div>
+      <div style="flex:1;font-size:.9rem;font-weight:600">{{ r.restaurant }}</div>
+      <div style="font-family:'Prompt',sans-serif;font-weight:700;font-size:.85rem;color:#006633">{{ r.cnt }} โพสต์</div>
+    </div>
+    {% empty %}
+    <div style="color:#999;text-align:center;padding:20px">ยังไม่มีข้อมูล</div>
+    {% endfor %}
+  </div>
+
+  <!-- สถิติมื้ออาหาร -->
+  <div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.07)">
+    <h3 style="font-family:'Prompt',sans-serif;font-weight:800;margin-bottom:16px">🕐 โพสต์แยกตามมื้อ</h3>
+    {% for m in meal_stats %}
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5">
+      <div style="font-size:1.2rem">
+        {% if m.meal == 'เช้า' %}🌅{% elif m.meal == 'กลางวัน' %}☀️{% elif m.meal == 'เย็น' %}🌆{% else %}🌙{% endif %}
+      </div>
+      <div style="flex:1;font-size:.9rem;font-weight:600">มื้อ{{ m.meal }}</div>
+      <div style="font-family:'Prompt',sans-serif;font-weight:700;font-size:.85rem;color:#0369A1">{{ m.cnt }} โพสต์</div>
+    </div>
+    {% empty %}
+    <div style="color:#999;text-align:center;padding:20px">ยังไม่มีข้อมูล</div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

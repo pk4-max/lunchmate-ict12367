@@ -1,0 +1,54 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+
+<div class="login-outer">
+  <div class="login-card">
+
+    <div class="login-logo">
+      <div class="login-logo-icon">🍜</div>
+      <div>
+        <div class="login-logo-name">Lunch<span>Mate</span></div>
+        <div class="login-logo-sub">SPU University</div>
+      </div>
+    </div>
+
+    <h2 class="login-title">สมัครสมาชิก</h2>
+    <p class="login-desc">สร้างบัญชีเพื่อโพสต์ชวนเพื่อนกินข้าวได้เลย</p>
+
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="fg">
+        <label class="fl">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div style="color:#dc2626;font-size:.8rem;margin-top:5px;font-family:'Prompt',sans-serif;">
+          {{ field.errors }}
+        </div>
+        {% endif %}
+        {% if field.help_text %}
+        <div style="color:#aaa;font-size:.76rem;margin-top:4px;line-height:1.5;">
+          {{ field.help_text }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <button type="submit" class="btn-sub" style="margin-top:8px;">
+        ✅ สมัครสมาชิก
+      </button>
+    </form>
+
+    <div class="login-divider">หรือ</div>
+
+    <div style="text-align:center;font-size:.88rem;color:#888;">
+      มีบัญชีแล้ว?
+      <a href="{% url 'login' %}" style="color:var(--primary);font-weight:700;text-decoration:none;">
+        เข้าสู่ระบบ
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
