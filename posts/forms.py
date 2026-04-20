@@ -16,7 +16,7 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].label = 'Username (ใช้สำหรับ login)'
-        self.fields['username'].widget.attrs.update({'class': 'fi', 'placeholder': 'เช่น 68082679'})
+        self.fields['username'].widget.attrs.update({'class': 'fi', 'placeholder': 'เช่น 680XXXXX'})
         self.fields['password1'].label = 'รหัสผ่าน'
         self.fields['password1'].widget.attrs.update({'class': 'fi'})
         self.fields['password2'].label = 'ยืนยันรหัสผ่าน'
@@ -56,6 +56,6 @@ class ProfileForm(forms.ModelForm):
             'bio':          'แนะนำตัว',
         }
         widgets = {
-            'display_name': forms.TextInput(attrs={**TEXT_ATTRS, 'placeholder': 'เช่น ชาคริต พละสุ'}),
+            'display_name': forms.TextInput(attrs={**TEXT_ATTRS, 'placeholder': 'เช่น งานการ ไม่ทำ'}),
             'bio':          forms.Textarea(attrs={**TEXTAREA_ATTRS, 'rows': 3}),
         }
