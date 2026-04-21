@@ -28,6 +28,8 @@ class LunchPost(models.Model):
     joined      = models.IntegerField(default=1)
     note        = models.TextField(blank=True)
     created_at  = models.DateTimeField(auto_now_add=True)
+    # ── เพิ่มตรงนี้ เพื่อติดตามว่าใครเข้าร่วมแล้วบ้าง ──
+    members     = models.ManyToManyField(User, related_name='joined_posts', blank=True)
 
     def __str__(self):
         return f"{self.restaurant} — {self.name}"

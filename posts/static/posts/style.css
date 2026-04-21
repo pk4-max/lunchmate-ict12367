@@ -869,3 +869,157 @@ body {
 
 /* ul list from Django field errors */
 .login-card ul { list-style:none; padding:0; margin:0; }
+
+/* ════════════════════════════════════════
+   ANIMATIONS & INTERACTIONS
+   ════════════════════════════════════════ */
+
+/* ── Page fade-in ── */
+@keyframes pageIn {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+body > *:not(.navbar) {
+  animation: pageIn .35s ease both;
+}
+
+/* ── Post cards stagger ── */
+.post-card:nth-child(1) { animation-delay:.05s; }
+.post-card:nth-child(2) { animation-delay:.10s; }
+.post-card:nth-child(3) { animation-delay:.15s; }
+.post-card:nth-child(4) { animation-delay:.20s; }
+.post-card:nth-child(5) { animation-delay:.25s; }
+
+/* ── Button press effect ── */
+.btn-join:not(.full):not(.joined):active,
+.btn-cta:active,
+.btn-sub:active,
+.btn-save:active,
+.mobile-cta:active {
+  transform: scale(0.95) !important;
+  transition: transform .1s !important;
+}
+
+/* ── Ripple ── */
+.btn-join, .btn-cta, .btn-sub, .btn-save {
+  position: relative;
+  overflow: hidden;
+}
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+.ripple-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  width: 10px; height: 10px;
+  pointer-events: none;
+  animation: ripple .55s ease-out forwards;
+  transform-origin: center;
+}
+
+/* ── Input focus lift ── */
+.fi:focus, .fs:focus, .fta:focus,
+.login-card input:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,200,81,.13);
+}
+
+/* ── Navbar link hover ── */
+.nav-link {
+  transition: background .18s, color .18s, transform .18s;
+}
+.nav-link:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Logo bounce on hover ── */
+.logo-icon-wrap {
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.logo-block:hover .logo-icon-wrap {
+  transform: rotate(-8deg) scale(1.12);
+}
+
+/* ── Profile avatar spin ── */
+.p-av {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.p-av:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+/* ── my-card hover ── */
+.my-card {
+  transition: border-color .18s, box-shadow .18s, transform .18s;
+}
+.my-card:hover {
+  transform: translateX(4px);
+}
+
+/* ── Stat box pop ── */
+.stat-box {
+  transition: transform .2s, box-shadow .2s;
+}
+.stat-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,200,81,.15);
+}
+
+/* ── Toast slide ── */
+.toast {
+  transition: opacity .28s, transform .28s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── FAB pulse ── */
+@keyframes fabPulse {
+  0%,100% { box-shadow: 0 4px 14px rgba(0,200,81,.5); }
+  50%      { box-shadow: 0 4px 24px rgba(0,200,81,.8); }
+}
+.bnav-fab {
+  animation: fabPulse 2.5s ease-in-out infinite;
+}
+
+/* ── Shake on error ── */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-8px); }
+  40%      { transform: translateX(8px); }
+  60%      { transform: translateX(-5px); }
+  80%      { transform: translateX(5px); }
+}
+.shake {
+  animation: shake .4s ease;
+}
+
+/* ── Slot fill animate on load ── */
+@keyframes slotGrow {
+  from { width: 0 !important; }
+}
+.slot-fill {
+  animation: slotGrow .8s cubic-bezier(.4,0,.2,1) both;
+}
+
+/* ── Filter tab active ── */
+.ftab {
+  transition: all .18s cubic-bezier(.4,0,.2,1);
+}
+.ftab:not(.active):hover {
+  transform: translateY(-1px);
+}
+
+/* ── Filter pill ── */
+.fpill {
+  transition: all .18s, transform .18s;
+}
+.fpill:hover {
+  transform: scale(1.05);
+}
+.fpill.sel {
+  transform: scale(1.05);
+}
+
+/* ── Confirm delete card shake on load ── */
+.delete-warn {
+  animation: pageIn .4s ease both;
+}

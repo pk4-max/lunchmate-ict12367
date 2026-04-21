@@ -13,4 +13,5 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('stats/', views.stats_view, name='stats'),
     path('search/', views.search_view, name='search'),
+    path('post/<int:pk>/leave/', views.leave_post, name='leave_post'),
 ]

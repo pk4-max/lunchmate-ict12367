@@ -89,16 +89,23 @@
           <div class="slot-fill" style="width:{% widthratio post.joined post.slots 100 %}%"></div>
         </div>
         <div class="slot-txt">{{ post.slots|add:"-1" }} ที่ว่าง</div>
-        {% if post.joined < post.slots and request.user != post.owner %}
-        <form method="post" action="{% url 'join_post' post.pk %}" style="margin:0;">
-          {% csrf_token %}
-          <button type="submit" class="btn-join">เข้าร่วม</button>
-        </form>
+
+        {% if request.user == post.owner %}
+          <span class="btn-join joined">โพสต์ของคุณ</span>
+        {% elif request.user in post.members.all %}
+          <form method="post" action="{% url 'leave_post' post.pk %}" style="margin:0;">
+            {% csrf_token %}
+            <button type="submit" class="btn-join" style="background:#ff3b30;box-shadow:0 2px 8px rgba(255,59,48,.35);">❌ ยกเลิก</button>
+          </form>
         {% elif post.joined >= post.slots %}
-        <span class="btn-join full">เต็มแล้ว</span>
-        {% elif request.user == post.owner %}
-        <span class="btn-join joined">โพสต์ของคุณ</span>
+          <span class="btn-join full">เต็มแล้ว</span>
+        {% else %}
+          <form method="post" action="{% url 'join_post' post.pk %}" style="margin:0;">
+            {% csrf_token %}
+            <button type="submit" class="btn-join">เข้าร่วม</button>
+          </form>
         {% endif %}
+
       </div>
     </div>
     {% empty %}

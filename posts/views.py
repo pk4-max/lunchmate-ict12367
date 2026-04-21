@@ -65,8 +65,21 @@ def join_post(request, pk):
         return redirect('login')
     if request.method == 'POST':
         post = get_object_or_404(LunchPost, pk=pk)
-        if post.joined < post.slots:
-            post.joined += 1
+        # ไม่ให้ join ซ้ำ และไม่ให้เจ้าของ join โพสต์ตัวเอง
+        if request.user != post.owner and request.user not in post.members.all():
+            if post.joined < post.slots:
+                post.members.add(request.user)
+                post.joined += 1
+                post.save()
+    return redirect('feed')
+
+@login_required
+def leave_post(request, pk):
+    if request.method == 'POST':
+        post = get_object_or_404(LunchPost, pk=pk)
+        if request.user in post.members.all():
+            post.members.remove(request.user)
+            post.joined -= 1
             post.save()
     return redirect('feed')
 
