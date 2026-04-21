@@ -874,21 +874,11 @@ body {
    ANIMATIONS & INTERACTIONS
    ════════════════════════════════════════ */
 
-/* ── Page fade-in ── */
+/* ── Page / card animations จัดการโดย JS แทน CSS เพื่อไม่ให้ติด cache ── */
 @keyframes pageIn {
   from { opacity:0; transform:translateY(10px); }
   to   { opacity:1; transform:translateY(0); }
 }
-body > *:not(.navbar) {
-  animation: pageIn .35s ease both;
-}
-
-/* ── Post cards stagger ── */
-.post-card:nth-child(1) { animation-delay:.05s; }
-.post-card:nth-child(2) { animation-delay:.10s; }
-.post-card:nth-child(3) { animation-delay:.15s; }
-.post-card:nth-child(4) { animation-delay:.20s; }
-.post-card:nth-child(5) { animation-delay:.25s; }
 
 /* ── Button press effect ── */
 .btn-join:not(.full):not(.joined):active,
